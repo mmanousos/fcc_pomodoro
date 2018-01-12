@@ -1,0 +1,32 @@
+/*-- ASSIGNMENT --*/
+
+Build a Pomodoro Clock
+
+Objective: Build a CodePen.io app that is functionally similar to this: https://codepen.io/FreeCodeCamp/full/aNyxXR/.
+
+Fulfill the below user stories. Use whichever libraries or APIs you need. Give it your own personal style.
+
+User Story: I can start a 25 minute pomodoro, and the timer will go off once 25 minutes has elapsed.
+
+User Story: I can reset the clock for my next pomodoro.
+
+User Story: I can customize the length of each pomodoro.
+
+
+//* DESIGN NOTES *//
+
+- want a pause/stop button
+- want a reset button 
+(possibly these three can be the same place - pause become stop if paused, becomes reset if stopped ? Then resets to pause when timer is started again)
+
+- want a visual representation of countdown (beyond just numbers?)
+
+- need alert that time is expired
+- want option of an audio alert (maybe only one sound choice though so option is off or on)
+
+- need task time and break time 
+
+
+
+<link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+font-family: 'Source Code Pro', monospace;
