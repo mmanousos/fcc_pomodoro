@@ -1,0 +1,43 @@
+html {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 20px;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 15px 0;    
+}
+
+p {
+    margin-bottom: 5px;
+}
+
+.form-control {
+    line-height: .75;
+}
+
+.form-group {
+    margin-bottom: -5px;
+}
+/*
+.minutes-label {
+    padding-left: 10px;
+}
+*/
+.credit {
+    margin-top: 20px;
+    font-size: 50%;
+    font-style: italic;
+    color: #98B182;
+}
+
+.credit p {
+    text-align: center; 
+}
+
+.credit a {
+    color: #42583D;
+}
+
