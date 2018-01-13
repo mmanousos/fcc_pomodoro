@@ -21,11 +21,32 @@ p {
 .form-group {
     margin-bottom: -5px;
 }
-/*
-.minutes-label {
-    padding-left: 10px;
+
+.start {
+    background-color: #42583D;
+    color: #fff;
 }
-*/
+
+.running {
+    background-color: #98B182;
+    color: #b4cba0;
+}
+
+.pause {
+    background-color: #FB5C4F;
+    color: #fff;
+}
+
+.stop {
+    background-color: #C2180B;
+    color: #fff;
+}
+
+.reset {
+    background-color: #9A0B00;
+    color: #FF8278;
+}
+
 .credit {
     margin-top: 20px;
     font-size: 50%;
