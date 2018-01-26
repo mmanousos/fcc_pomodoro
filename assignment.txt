@@ -30,3 +30,30 @@ User Story: I can customize the length of each pomodoro.
 
 <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
 font-family: 'Source Code Pro', monospace;
+
+
+//* PSEUDOCODE *//
+
+on load, work time set to 25 minutes
+on load, break time set to 05 minutes
+/*  unnecessary to set them on load - set as 'selected' in HTML instead */
+
+On select of dropdowns, change 'selected' to selected 'value'/option
+
+On start click, button grays out
+                timer count down starts 
+                
+On timer === 0, alert pops up
+                alert sound plays
+                break time countdown fills display and countdown starts
+                
+On Pause click, start button refills 
+                pause button changes to Stop
+                timer count down stops
+                
+On Stop click, button changes to Reset
+On Reset click, timer display goes back to whatever the setting of the work time or break time setting is. 
+
+On alert sound slider click to off position, slider changes to red
+                                             alert sound turns off 
+
