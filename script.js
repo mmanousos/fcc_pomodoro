@@ -47,10 +47,11 @@ $(document).ready(function () {
             secs = secs - 1;
             if ( secs <= 0 ) {
                 clearInterval(timerFunc);
+                $('#alarm-sound')[0].play();
                 alert("Time's up!");
                 return;
-            }
-            
+            }                
+                
             currentMins = Math.floor(secs / 60);
             currentSecs = secs % 60;
             if (currentSecs <= 9) {
