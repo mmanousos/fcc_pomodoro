@@ -1,34 +1,34 @@
-$(document).ready(function() {
-    var clockArr = [2, 5];
-    var clock;  
+$(document).ready(function () {
+    var clockArr = [2, 5],
+        clock;  
 
     //change value of work timer
     //tens digit
     $("#tens")
-        .change(function() {
+        .change(function () {
         
-        $( "#tens option:selected").each(function() {
-            var newTens = $(this).text(); 
+        $("#tens option:selected").each(function () {
+            var newTens =$(this).text(); 
             clockArr.splice(0, 1, newTens);
                 console.log(clockArr);    
         });
         clock = clockArr.join(''); 
-        $('#timer').text(clock);
+        $('#timer').text(clock + ":00");
         return clock;
         })
         .trigger("change");
 
     //singles digit
     $("#singles")
-        .change(function() {
+        .change(function () {
         
-        $( "#singles option:selected").each(function() {
+        $("#singles option:selected").each(function () {
             var newSingles = $(this).text(); 
             clockArr.splice(1, 1, newSingles);
                 console.log(clockArr);    
         });
         clock = clockArr.join(''); 
-        $('#timer').text(clock);
+        $('#timer').text(clock + ":00");
         return clock;
         })
         .trigger("change");
@@ -36,50 +36,42 @@ $(document).ready(function() {
 /* timer functionality */    
 
     function timerRun () {
-        var count = Number(clock);
-            console.log(count);
-        var timer = count*60;
-            console.log(timer);
-
-//        var counter = setInterval(timer, 1000); //1000 will run it every 1 second
-
-        if (timer > 0) {
-            setInterval(function(){ 
-                for (var i = timer; i > 0; i--) {    
-                console.log(i);
-                }
-                }, 1000);
-        } else {
-            clearInterval(i);
-            alert("Time's up!");
-            return;      
-        }
+        console.log("countdown has started");
+        var mins = Number(clock),
+            secs = mins * 60,
+            currentMins = 0,
+            currentSecs = 0,
+            
+        // countdown function //    
+            Countdown = function () { 
+            secs = secs - 1;
+            if ( secs <= 0 ) {
+                clearInterval(timerFunc);
+                alert("Time's up!");
+                return;
+            }
+            
+            currentMins = Math.floor(secs / 60);
+            currentSecs = secs % 60;
+            if (currentSecs <= 9) {
+                currentSecs = "0" + currentSecs;
+            }
+            if (currentMins <= 9) {
+                currentMins = "0" + currentMins;
+            }
+            $("#timer").text(currentMins + ":" + currentSecs); 
+                console.log(currentMins + ":" + currentSecs);
+        },
+            
+            timerFunc = setInterval(Countdown, 1000);
     }
-    
         
-  /*      
-        while (timer > 0) {
-            setInterval(function(){ 
-                timer = timer-1;
-                console.log(timer);
-            }, 1000);
-        }
-        if (timer <= 0)  {
-             //counter ended, do something here
-             clearInterval(timer);
-             alert("Time's up!");
-             return;
-          }
-        
-          //Do code for showing the number of seconds here
-    }
-    */ 
-             
+         
 /* Start button functionality */     
     $("#start").on("click", function() {
         timerRun();
         $(this).addClass("running");
-    })
+    });
     
  /*   Save this behavior until after the countdown has completed.
     //change value of break timer
