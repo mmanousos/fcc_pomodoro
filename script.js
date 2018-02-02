@@ -60,7 +60,7 @@ $(document).ready(function () {
             secs = secs - 1;
             if ( secs <= 0 ) {
                 clearInterval(timerFunc);
-                if ($("#audio").hasClass("true")) {
+                if (!$("#audio").hasClass("false")) {
                     TimeUpSound();
                 } else {
                     TimeUp();    
@@ -90,6 +90,26 @@ $(document).ready(function () {
         timerRun();
         $(this).addClass("running");
     });
+    
+    //(!$(this).hasClass("test"))
+    
+/* sound slider functionality */
+    $(".switch").on("click", function() {
+        sliderOff();
+    });
+    
+    function sliderOff () {
+        $("#on").text("off");
+        $("#audio").addClass("false");
+    }
+    
+    function sliderOn () {
+        $("#on").text("on");
+        $("#audio").removeClass("false");
+        console.log("sound is on");
+    }
+    
+    
     
  /*   Save this behavior until after the countdown has completed.
     //change value of break timer
