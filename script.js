@@ -33,6 +33,19 @@ $(document).ready(function () {
         })
         .trigger("change");
 
+    
+/* alert functionality */    
+    
+    function TimeUpSound() {
+        $('#alarm-sound')[0].play();
+        setTimeout(function(){alert("Time's Up!");},1000);
+        }    
+    
+    function TimeUp() {
+        setTimeout(function(){alert("Time's Up!");},1000);
+        }    
+
+    
 /* timer functionality */    
 
     function timerRun () {
@@ -47,8 +60,12 @@ $(document).ready(function () {
             secs = secs - 1;
             if ( secs <= 0 ) {
                 clearInterval(timerFunc);
-                $('#alarm-sound')[0].play();
-                alert("Time's up!");
+                if ($("#audio").hasClass("true")) {
+                    TimeUpSound();
+                } else {
+                    TimeUp();    
+                }
+                
                 return;
             }                
                 
