@@ -57,7 +57,8 @@ $(document).ready(function () {
             
         // countdown function //    
             Countdown = function () { 
-            secs = secs - 1;
+            if (!$("#timer").hasClass("paused")) {
+            secs = secs - 1; 
             if ( secs <= 0 ) {
                 clearInterval(timerFunc);
                 if (!$("#audio").hasClass("false")) {
@@ -79,6 +80,10 @@ $(document).ready(function () {
             }
             $("#timer").text(currentMins + ":" + currentSecs); 
                 console.log(currentMins + ":" + currentSecs);
+            }
+                else {
+                    console.log("timer is paused");
+                }
         },
             
             timerFunc = setInterval(Countdown, 1000);
@@ -87,8 +92,41 @@ $(document).ready(function () {
          
 /* Start button functionality */     
     $("#start").on("click", function() {
-        timerRun();
-        $(this).addClass("running");
+        if ($("#timer").hasClass("paused")) {
+            $("#timer").removeClass("paused");
+            if ($("#stop").hasClass("stop")) {
+                $("#stop").removeClass("stop").text("Pause");
+                $(this).addClass("running");
+            }
+        } else if (!$("#timer").hasClass("paused")) {
+            timerRun();
+            $(this).addClass("running");
+        } 
+    });
+    
+    
+/* Pause button functionality */
+    $("#stop").on("click", function() {
+        if ($("#start").hasClass("running")) {
+            $(this).addClass("stop").text("Reset");
+            $("#start").removeClass("running");
+         /* pauses countdown - how do I get it to restart at the same place. clicking start again, starts count anew */ 
+            $("#timer").addClass("paused");
+        
+            if ($(this).hasClass("stop")) {
+                $("#stop").on("click", function() {
+                    //$(this).addClass("reset").removeClass("stop").text("Reset");
+                    $(this).removeClass("stop").text("Pause");
+                    
+                });
+                
+            } /*else if ($(this).hasClass("reset")) {
+                console.log("reset button has been clicked");
+                // $("#stop").on("click", function() {
+                    $(this).removeClass("reset").text("Pause");
+            //    });
+            } */
+        }
     });
     
     //(!$(this).hasClass("test"))
