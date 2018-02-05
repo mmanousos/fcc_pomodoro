@@ -106,10 +106,10 @@ function timerFunc(bool, func, time) {
                 $("#timer").removeClass("paused");
                 $(this).addClass("running");
             }
-           /* if ($("#stop").hasClass("stop")) {
+            if ($("#stop").hasClass("stop")) {
                 $("#stop").removeClass("stop").text("Pause");
                 $(this).addClass("running"); 
-            }*/
+            }
         } else if (!$("#timer").hasClass("paused")) {
             timerRun();
             $(this).addClass("running");
@@ -120,33 +120,22 @@ function timerFunc(bool, func, time) {
     
 /* Pause button functionality */
     $("#stop").on("click", function() {
-      /*  if ($("#start").hasClass("running")) {
+      if ($("#timer").hasClass("working")) {
+        if (!$(this).hasClass("stop")) {    
             $(this).addClass("stop").text("Reset");
-            $("#start").removeClass("running"); */
-            
-            $("#timer").addClass("paused");
             $("#start").removeClass("running"); 
-    
+            $("#timer").addClass("paused");
+        }
             /* Reset button functionality */
-            if ($(this).hasClass("stop")) {
-                $("#stop").on("click", function() {
-                    //$(this).addClass("reset").removeClass("stop").text("Reset");
-                    $(this).removeClass("stop").text("Pause");
-                    $('#timer').text(clock + ":00");
-                    timerFunc(false);
-                    $("#timer").removeClass("paused").removeClass("working");
-                });
-                
-            } /*else if ($(this).hasClass("reset")) {
-                console.log("reset button has been clicked");
-                // $("#stop").on("click", function() {
-                    $(this).removeClass("reset").text("Pause");
-            //    });
-            } */
-        //}
+        else {
+            $(this).removeClass("stop").text("Pause");
+            $('#timer').text(clock + ":00");
+            timerFunc(false);
+            $("#timer").removeClass("paused").removeClass("working");
+        }
+        }
     });
     
-    //(!$(this).hasClass("test"))
     
 /* sound slider functionality */
     $(".switch").on("click", function() {
