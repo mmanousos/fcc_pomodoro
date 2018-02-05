@@ -45,6 +45,15 @@ $(document).ready(function () {
         setTimeout(function(){alert("Time's Up!");},1000);
         }    
 
+/* run / stop timer */    
+var intervalID = null;
+
+function timerFunc(bool, func, time) {
+   if(bool)
+     intervalID = setInterval(func,time);
+   else
+     clearInterval(intervalID);
+}    
     
 /* timer functionality */    
 
@@ -58,35 +67,33 @@ $(document).ready(function () {
         // countdown function //    
             Countdown = function () { 
             if (!$("#timer").hasClass("paused")) {
-            secs = secs - 1; 
-            if ( secs <= 0 ) {
-                clearInterval(timerFunc);
-                if (!$("#audio").hasClass("false")) {
-                    TimeUpSound();
-                } else {
-                    TimeUp();    
+                secs = secs - 1; 
+                if ( secs <= 0 ) {
+                    clearInterval(timerFunc);
+                    if (!$("#audio").hasClass("false")) {
+                        TimeUpSound();
+                    } else {
+                        TimeUp();    
+                    }
+                    return;
+                }                
+
+                currentMins = Math.floor(secs / 60);
+                currentSecs = secs % 60;
+                if (currentSecs <= 9) {
+                    currentSecs = "0" + currentSecs;
                 }
-                
-                return;
-            }                
-                
-            currentMins = Math.floor(secs / 60);
-            currentSecs = secs % 60;
-            if (currentSecs <= 9) {
-                currentSecs = "0" + currentSecs;
-            }
-            if (currentMins <= 9) {
-                currentMins = "0" + currentMins;
-            }
-            $("#timer").text(currentMins + ":" + currentSecs); 
-                console.log(currentMins + ":" + currentSecs);
-            }
-                else {
-                    console.log("timer is paused");
+                if (currentMins <= 9) {
+                    currentMins = "0" + currentMins;
                 }
-        },
+                $("#timer").text(currentMins + ":" + currentSecs); 
+                    console.log(currentMins + ":" + currentSecs);
+            } else {
+                console.log("timer is paused");
+            }
+        };
             
-            timerFunc = setInterval(Countdown, 1000);
+            timerFunc(true, Countdown, 1000);
     }
         
          
@@ -113,11 +120,14 @@ $(document).ready(function () {
          /* pauses countdown - how do I get it to restart at the same place. clicking start again, starts count anew */ 
             $("#timer").addClass("paused");
         
+            /* Reset button functionality */
             if ($(this).hasClass("stop")) {
                 $("#stop").on("click", function() {
                     //$(this).addClass("reset").removeClass("stop").text("Reset");
                     $(this).removeClass("stop").text("Pause");
-                    
+                    $('#timer').text(clock + ":00");
+                    timerFunc(false);
+                    $("#timer").removeClass("paused");
                 });
                 
             } /*else if ($(this).hasClass("reset")) {
@@ -133,18 +143,25 @@ $(document).ready(function () {
     
 /* sound slider functionality */
     $(".switch").on("click", function() {
-        sliderOff();
+        if ($("#audio").hasClass("on")) {
+            sliderOff();
+        } else {
+            $(".switch").on("click", function() {
+                sliderOn();       
+            });
+        }
     });
     
     function sliderOff () {
         $("#on").text("off");
-        $("#audio").addClass("false");
+        $("#audio").toggleClass("false");
+        $("#audio").addClass("off").removeClass("on");
     }
     
     function sliderOn () {
         $("#on").text("on");
-        $("#audio").removeClass("false");
-        console.log("sound is on");
+        $("#audio").toggleClass("false");
+        $("#audio").removeClass("off").addClass("on");
     }
     
     
