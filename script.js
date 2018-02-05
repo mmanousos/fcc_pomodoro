@@ -46,14 +46,14 @@ $(document).ready(function () {
         }    
 
 /* run / stop timer */    
-var intervalID = null;
+    var intervalID = null;
 
-function timerFunc(bool, func, time) {
-   if(bool)
-     intervalID = setInterval(func,time);
-   else
-     clearInterval(intervalID);
-}    
+    function timerFunc(bool, func, time) {
+       if(bool)
+         intervalID = setInterval(func,time);
+       else
+         clearInterval(intervalID);
+    }    
     
 /* timer functionality */    
 
@@ -67,10 +67,9 @@ function timerFunc(bool, func, time) {
         // countdown function //    
             Countdown = function () { 
             if (!$("#timer").hasClass("paused")) {
-                //if (!$("#timer").hasClass("working")) {
                     secs = secs - 1; 
                     if ( secs <= 0 ) {
-                        clearInterval(timerFunc);
+                        timerFunc(false);
                         if (!$("#audio").hasClass("false")) {
                             TimeUpSound();
                         } else {
@@ -78,7 +77,6 @@ function timerFunc(bool, func, time) {
                         }
                         return;
                     } 
-               // }
 
                 currentMins = Math.floor(secs / 60);
                 currentSecs = secs % 60;
