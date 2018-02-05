@@ -189,25 +189,23 @@ $(document).ready(function () {
     
 /* sound slider functionality */
     $(".switch").on("click", function() {
-        if ($("#audio").hasClass("on")) {
-            sliderOff();
-        } else {
-            $(".switch").on("click", function() {
-                sliderOn();       
-            });
+        if (!$("#timer").hasClass("silent")) {
+            $(".switch").on("click", sliderOff);
+        }   else {
+            $(".switch").on("click", sliderOn);
         }
     });
     
     function sliderOff () {
         $("#on").text("off");
         $("#audio").toggleClass("false");
-        $("#audio").addClass("off").removeClass("on");
+        $("#timer").addClass("silent");
     }
     
     function sliderOn () {
         $("#on").text("on");
         $("#audio").toggleClass("false");
-        $("#audio").removeClass("off").addClass("on");
+        $("#timer").removeClass("silent");
     }
     
 });
