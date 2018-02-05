@@ -1,6 +1,10 @@
 $(document).ready(function () {
-    var clockArr = [2, 5],
-        clock;  
+    var workArr = [2, 5],
+        workTime,
+        clock,
+        breakArr = [,],
+        breakTime;
+    
 
     //change value of work timer
     //tens digit
@@ -9,12 +13,12 @@ $(document).ready(function () {
         
         $("#tens option:selected").each(function () {
             var newTens =$(this).text(); 
-            clockArr.splice(0, 1, newTens);
-                console.log(clockArr);    
+            workArr.splice(0, 1, newTens);
+                console.log(workArr);    
         });
-        clock = clockArr.join(''); 
-        $('#timer').text(clock + ":00");
-        return clock;
+        workTime = workArr.join(''); 
+        $('#timer').text(workTime + ":00");
+        return workTime;
         })
         .trigger("change");
 
@@ -24,15 +28,44 @@ $(document).ready(function () {
         
         $("#singles option:selected").each(function () {
             var newSingles = $(this).text(); 
-            clockArr.splice(1, 1, newSingles);
-                console.log(clockArr);    
+            workArr.splice(1, 1, newSingles);
+                console.log(workArr);    
         });
-        clock = clockArr.join(''); 
-        $('#timer').text(clock + ":00");
-        return clock;
+        workTime = workArr.join(''); 
+        $('#timer').text(workTime + ":00");
+        return workTime;
+        })
+        .trigger("change");
+   
+    //change value of break timer
+    //tens digit
+    $("#ten")
+        .change(function() {
+        
+        $( "#ten option:selected").each(function() {
+            var newTen = $(this).text(); 
+            breakArr.splice(0, 1, newTen);
+                console.log(breakArr);    
+        });
+        breakTime = breakArr.join(''); 
+        return breakTime;
         })
         .trigger("change");
 
+    //singles digit
+    $("#one")
+        .change(function() {
+        
+        $( "#one option:selected").each(function() {
+            var newOne = $(this).text(); 
+            breakArr.splice(1, 1, newOne);
+                console.log(breakArr);    
+        });
+        breakTime = breakArr.join(''); 
+        return breakTime;
+        })
+        .trigger("change");
+    
     
 /* alert functionality */    
     
@@ -59,6 +92,11 @@ $(document).ready(function () {
 
     function timerRun () {
         console.log("countdown has started");
+        if (!$("#timer").hasClass("break")) {
+            clock = workTime;
+        } else {
+            clock = breakTime;
+        }
         var mins = Number(clock),
             secs = mins * 60,
             currentMins = 0,
@@ -70,6 +108,16 @@ $(document).ready(function () {
                     secs = secs - 1; 
                     if ( secs <= 0 ) {
                         timerFunc(false);
+                        if ($("#timer").hasClass("work")) {
+                            $("#timer").addClass("break").removeClass("work");
+                            clock = breakTime;
+                            $('#timer').text(clock + ":00");
+                            timerRun();
+                        } else if ($("#timer").hasClass("break")) {
+                            $("#timer").addClass("work").removeClass("break");
+                            clock = workTime;
+                            $('#timer').text(clock + ":00");
+                        }
                         if (!$("#audio").hasClass("false")) {
                             TimeUpSound();
                         } else {
@@ -111,7 +159,7 @@ $(document).ready(function () {
         } else if (!$("#timer").hasClass("paused")) {
             timerRun();
             $(this).addClass("running");
-            $("#timer").addClass("working");
+            $("#timer").addClass("working").addClass("work");
         } 
     });
     
@@ -119,18 +167,22 @@ $(document).ready(function () {
 /* Pause button functionality */
     $("#stop").on("click", function() {
       if ($("#timer").hasClass("working")) {
-        if (!$(this).hasClass("stop")) {    
-            $(this).addClass("stop").text("Reset");
-            $("#start").removeClass("running"); 
-            $("#timer").addClass("paused");
-        }
-            /* Reset button functionality */
-        else {
-            $(this).removeClass("stop").text("Pause");
-            $('#timer').text(clock + ":00");
-            timerFunc(false);
-            $("#timer").removeClass("paused").removeClass("working");
-        }
+            if (!$(this).hasClass("stop")) {    
+                $(this).addClass("stop").text("Reset");
+                $("#start").removeClass("running"); 
+                $("#timer").addClass("paused");
+            }
+                /* Reset button functionality */
+            else {
+                $(this).removeClass("stop").text("Pause");
+                timerFunc(false);
+                $("#timer").removeClass("paused").removeClass("working");
+                $('#timer').text(workTime + ":00");
+                if ($("#timer").hasClass("break")) {
+                    $("#timer").removeClass("break");
+                    $('#timer').text(workTime + ":00");
+                } 
+            }
         }
     });
     
@@ -158,42 +210,7 @@ $(document).ready(function () {
         $("#audio").removeClass("off").addClass("on");
     }
     
-    
-    
- /*   Save this behavior until after the countdown has completed.
-    //change value of break timer
-    //tens digit
-    $("#ten")
-        .change(function() {
-        
-        $( "#ten option:selected").each(function() {
-            var newTen = $(this).text(); 
-            clockArr.splice(0, 1, newTen);
-                console.log(clockArr);    
-        });
-        clock = clockArr.join(''); 
-        $('#timer').text(clock);
-        })
-        .trigger("change");
-
-    //singles digit
-    $("#one")
-        .change(function() {
-        
-        $( "#one option:selected").each(function() {
-            var newOne = $(this).text(); 
-            clockArr.splice(1, 1, newOne);
-                console.log(clockArr);    
-        });
-        clock = clockArr.join(''); 
-        $('#timer').text(clock);
-        })
-        .trigger("change");
-   */ 
-    
-
 });
-
 
 
 
