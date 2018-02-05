@@ -67,16 +67,18 @@ function timerFunc(bool, func, time) {
         // countdown function //    
             Countdown = function () { 
             if (!$("#timer").hasClass("paused")) {
-                secs = secs - 1; 
-                if ( secs <= 0 ) {
-                    clearInterval(timerFunc);
-                    if (!$("#audio").hasClass("false")) {
-                        TimeUpSound();
-                    } else {
-                        TimeUp();    
-                    }
-                    return;
-                }                
+                //if (!$("#timer").hasClass("working")) {
+                    secs = secs - 1; 
+                    if ( secs <= 0 ) {
+                        clearInterval(timerFunc);
+                        if (!$("#audio").hasClass("false")) {
+                            TimeUpSound();
+                        } else {
+                            TimeUp();    
+                        }
+                        return;
+                    } 
+               // }
 
                 currentMins = Math.floor(secs / 60);
                 currentSecs = secs % 60;
@@ -100,26 +102,31 @@ function timerFunc(bool, func, time) {
 /* Start button functionality */     
     $("#start").on("click", function() {
         if ($("#timer").hasClass("paused")) {
-            $("#timer").removeClass("paused");
-            if ($("#stop").hasClass("stop")) {
-                $("#stop").removeClass("stop").text("Pause");
+            if ($("#timer").hasClass("working")) {
+                $("#timer").removeClass("paused");
                 $(this).addClass("running");
             }
+           /* if ($("#stop").hasClass("stop")) {
+                $("#stop").removeClass("stop").text("Pause");
+                $(this).addClass("running"); 
+            }*/
         } else if (!$("#timer").hasClass("paused")) {
             timerRun();
             $(this).addClass("running");
+            $("#timer").addClass("working");
         } 
     });
     
     
 /* Pause button functionality */
     $("#stop").on("click", function() {
-        if ($("#start").hasClass("running")) {
+      /*  if ($("#start").hasClass("running")) {
             $(this).addClass("stop").text("Reset");
-            $("#start").removeClass("running");
-         /* pauses countdown - how do I get it to restart at the same place. clicking start again, starts count anew */ 
+            $("#start").removeClass("running"); */
+            
             $("#timer").addClass("paused");
-        
+            $("#start").removeClass("running"); 
+    
             /* Reset button functionality */
             if ($(this).hasClass("stop")) {
                 $("#stop").on("click", function() {
@@ -127,7 +134,7 @@ function timerFunc(bool, func, time) {
                     $(this).removeClass("stop").text("Pause");
                     $('#timer').text(clock + ":00");
                     timerFunc(false);
-                    $("#timer").removeClass("paused");
+                    $("#timer").removeClass("paused").removeClass("working");
                 });
                 
             } /*else if ($(this).hasClass("reset")) {
@@ -136,7 +143,7 @@ function timerFunc(bool, func, time) {
                     $(this).removeClass("reset").text("Pause");
             //    });
             } */
-        }
+        //}
     });
     
     //(!$(this).hasClass("test"))
