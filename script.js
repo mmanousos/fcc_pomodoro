@@ -17,7 +17,9 @@ $(document).ready(function () {
                 console.log(workArr);    
         });
         workTime = workArr.join(''); 
-        $('#timer').text(workTime + ":00");
+        if (!$("#timer").hasClass("working")) {
+            $('#timer').text(workTime + ":00");
+        } 
         return workTime;
         })
         .trigger("change");
@@ -32,7 +34,9 @@ $(document).ready(function () {
                 console.log(workArr);    
         });
         workTime = workArr.join(''); 
-        $('#timer').text(workTime + ":00");
+        if (!$("#timer").hasClass("working")) {
+            $('#timer').text(workTime + ":00");
+        }
         return workTime;
         })
         .trigger("change");
@@ -48,6 +52,9 @@ $(document).ready(function () {
                 console.log(breakArr);    
         });
         breakTime = breakArr.join(''); 
+        if ($("#timer").hasClass("break")) {
+            $('#timer').text(breakTime + ":00");
+        }
         return breakTime;
         })
         .trigger("change");
@@ -62,6 +69,9 @@ $(document).ready(function () {
                 console.log(breakArr);    
         });
         breakTime = breakArr.join(''); 
+        if ($("#timer").hasClass("break")) {
+            $('#timer').text(breakTime + ":00");
+        }
         return breakTime;
         })
         .trigger("change");
