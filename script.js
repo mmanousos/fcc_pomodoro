@@ -2,7 +2,7 @@ $(document).ready(function () {
     var workArr = [2, 5],
         workTime,
         clock,
-        breakArr = [,],
+        breakArr = [],
         breakTime;
     
 
@@ -11,68 +11,68 @@ $(document).ready(function () {
     $("#tens")
         .change(function () {
         
-        $("#tens option:selected").each(function () {
-            var newTens =$(this).text(); 
-            workArr.splice(0, 1, newTens);
+            $("#tens option:selected").each(function () {
+                var newTens = $(this).text(); 
+                workArr.splice(0, 1, newTens);
                 console.log(workArr);    
-        });
-        workTime = workArr.join(''); 
-        if (!$("#timer").hasClass("working")) {
-            $('#timer').text(workTime + ":00");
-        } 
-        return workTime;
-        })
+            });
+            workTime = workArr.join(''); 
+            if (!$("#timer").hasClass("working")) {
+                $('#timer').text(workTime + ":00"); 
+            } 
+            return workTime;
+            })
         .trigger("change");
 
     //singles digit
     $("#singles")
         .change(function () {
         
-        $("#singles option:selected").each(function () {
-            var newSingles = $(this).text(); 
-            workArr.splice(1, 1, newSingles);
+            $("#singles option:selected").each(function () {
+                var newSingles = $(this).text(); 
+                workArr.splice(1, 1, newSingles);
                 console.log(workArr);    
-        });
-        workTime = workArr.join(''); 
-        if (!$("#timer").hasClass("working")) {
-            $('#timer').text(workTime + ":00");
-        }
-        return workTime;
-        })
+            });
+            workTime = workArr.join(''); 
+            if (!$("#timer").hasClass("working")) {
+                $('#timer').text(workTime + ":00");
+            }
+            return workTime;
+            })
         .trigger("change");
    
     //change value of break timer
     //tens digit
     $("#ten")
-        .change(function() {
+        .change(function () {
         
-        $( "#ten option:selected").each(function() {
-            var newTen = $(this).text(); 
-            breakArr.splice(0, 1, newTen);
+            $("#ten option:selected").each(function () {
+                var newTen = $(this).text(); 
+                breakArr.splice(0, 1, newTen);
                 console.log(breakArr);    
-        });
-        breakTime = breakArr.join(''); 
-        if ($("#timer").hasClass("break")) {
-            $('#timer').text(breakTime + ":00");
-        }
-        return breakTime;
-        })
+                });
+            breakTime = breakArr.join(''); 
+            if ($("#timer").hasClass("break")) {
+                $('#timer').text(breakTime + ":00");
+            }
+            return breakTime;
+            })
         .trigger("change");
 
     //singles digit
     $("#one")
         .change(function() {
         
-        $( "#one option:selected").each(function() {
-            var newOne = $(this).text(); 
-            breakArr.splice(1, 1, newOne);
+        $( "#one option:selected").each(function () {
+                var newOne = $(this).text(); 
+                breakArr.splice(1, 1, newOne);
                 console.log(breakArr);    
-        });
-        breakTime = breakArr.join(''); 
-        if ($("#timer").hasClass("break")) {
-            $('#timer').text(breakTime + ":00");
-        }
-        return breakTime;
+            });
+            breakTime = breakArr.join(''); 
+            if ($("#timer").hasClass("break")) {
+                $('#timer').text(breakTime + ":00");
+            }
+            return breakTime;
         })
         .trigger("change");
     
@@ -81,26 +81,31 @@ $(document).ready(function () {
     
     function TimeUpSound() {
         $('#alarm-sound')[0].play();
-        setTimeout(function(){alert("Time's Up!");},1000);
-        }    
+        setTimeout(function () {
+            alert("Time's Up!");
+        }, 1000);
+    }    
     
     function TimeUp() {
-        setTimeout(function(){alert("Time's Up!");},1000);
-        }    
+        setTimeout(function () {
+            alert("Time's Up!");
+        }, 1000);
+    }    
 
 /* run / stop timer */    
     var intervalID = null;
 
     function timerFunc(bool, func, time) {
-       if(bool)
-         intervalID = setInterval(func,time);
-       else
-         clearInterval(intervalID);
+        if (bool) {
+            intervalID = setInterval(func, time);
+        } else {
+            clearInterval(intervalID);
+        }
     }    
     
 /* timer functionality */    
 
-    function timerRun () {
+    function timerRun() {
         console.log("countdown has started");
         if (!$("#timer").hasClass("break")) {
             clock = workTime;
@@ -114,7 +119,7 @@ $(document).ready(function () {
             
         // countdown function //    
             Countdown = function () { 
-            if (!$("#timer").hasClass("paused")) {
+                if (!$("#timer").hasClass("paused")) {
                     secs = secs - 1; 
                     if ( secs <= 0 ) {
                         timerFunc(false);
@@ -137,20 +142,20 @@ $(document).ready(function () {
                         return;
                     } 
 
-                currentMins = Math.floor(secs / 60);
-                currentSecs = secs % 60;
-                if (currentSecs <= 9) {
-                    currentSecs = "0" + currentSecs;
-                }
-                if (currentMins <= 9) {
-                    currentMins = "0" + currentMins;
-                }
-                $("#timer").text(currentMins + ":" + currentSecs); 
+                    currentMins = Math.floor(secs / 60);
+                    currentSecs = secs % 60;
+                    if (currentSecs <= 9) {
+                        currentSecs = "0" + currentSecs;
+                    }
+                    if (currentMins <= 9) {
+                        currentMins = "0" + currentMins;
+                    }
+                    $("#timer").text(currentMins + ":" + currentSecs); 
                     console.log(currentMins + ":" + currentSecs);
-            } else {
-                console.log("timer is paused");
-            }
-        };
+                } else {
+                    console.log("timer is paused");
+                }
+            };
             
             timerFunc(true, Countdown, 1000);
     }
