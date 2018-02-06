@@ -127,6 +127,7 @@ $(document).ready(function () {
                             $("#timer").addClass("work").removeClass("break");
                             clock = workTime;
                             $('#timer').text(clock + ":00");
+                            timerRun();
                         }
                         if (!$("#audio").hasClass("false")) {
                             TimeUpSound();
